@@ -1,0 +1,9 @@
+{
+  "name": "@shared/bot",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "rivescript": "https://github.com/mindhivefi/rivescript-js"
+  },
+  "devDependencies": {}
+}

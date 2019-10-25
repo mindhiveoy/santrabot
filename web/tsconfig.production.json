@@ -1,0 +1,48 @@
+{
+  "extends": "./tsconfig.json",
+
+  "include": [
+    "./src"
+  ],
+  
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "build/dist",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "types": [
+      "moment",
+      "react",
+      "react-dom",
+      "@material-ui/core",
+      "redux",
+      "react-redux",
+      "jest",
+      "@types/jest",
+      "@types/node",
+      "styled-components"
+    ],
+    "paths": {
+      "@shared/*": ["../../@shared/*"]
+    }
+  },
+
+  "exclude": [
+    "src/utils/__specs__",
+    "src/dashboard/containers/Dashboard/Organization/users/__specs__",
+    "src/**/*.spec.ts"
+  ]
+}

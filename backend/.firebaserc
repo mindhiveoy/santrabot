@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "santrabot-dev",
+    "staging": "santrabot-staging",
+    "production": "santrabot"
+  }
+}

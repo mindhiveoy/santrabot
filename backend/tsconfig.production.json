@@ -1,0 +1,30 @@
+{
+  "include": ["./src"],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "target": "es6",
+    "paths": {
+      "@shared/*": ["../../@shared/*"]
+    }
+  },
+  "exclude": [
+    "lib", 
+    "node_modules", 
+    "tools", 
+    "jest.config.js",
+    "**/*.spec.*",
+    "**/__specs__/*",
+    "src/__mocks__",
+  ]
+}

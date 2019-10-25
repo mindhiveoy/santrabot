@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "exclude": [
+    "acceptance-tests",
+    "build",
+    "coverage",
+    "dist",
+    "node_modules",
+    "postcss.config.js",
+    "src/setupTests.ts",
+    "scripts",
+    "webpack"
+  ]
+}

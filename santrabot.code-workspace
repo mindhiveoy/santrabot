@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "web"
+	},
+	{
+		"path": "backend"
+	},
+	{
+		"path": "@shared"
+	}
+],
+  "settings": {}
+}

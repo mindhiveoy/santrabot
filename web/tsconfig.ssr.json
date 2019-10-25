@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "build/dist",
+    // "module": "commonjs",
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    // "moduleResolution": "node",
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "types": [
+      "moment",
+      "react",
+      "react-dom",
+      "@material-ui/core",
+      "redux",
+      "react-redux",
+      "jest",
+      "@types/jest",
+      "@types/node",
+      "styled-components"
+    ],
+
+    "paths": {
+      "@shared/*": ["../../@shared/*"]
+    }
+  },
+  "exclude": [
+    "acceptance-tests",
+    "build",
+    "coverage",
+    "dist",
+    "functions",
+    "jest",
+    "jest.config.js",
+    "node_modules",
+    "postcss.config.js",
+    "src/setupTests.ts",
+    "scripts",
+    "webpack"
+  ]
+}

@@ -1,0 +1,24 @@
+
+type Mutation {
+  sendMessage(message: String!, sessionToken: String!, organizationId: String!): ChatMessagePair
+
+  startSession(organizationId: String!): SessionInfo
+
+  endSession(organizationId: String!, sessionToken: String!): Boolean
+}
+
+type SessionInfo {
+  sessionToken: String!
+}
+
+type ChatMessagePair {
+  user: ChatMessage!
+  bot: ChatMessage!
+}
+
+type ChatMessage {
+  id: ID!
+  content: String!
+  user: String!
+  date: Float!
+}

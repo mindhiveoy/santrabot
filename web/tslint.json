@@ -1,0 +1,130 @@
+{
+  "autoFixOnSave": true,
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-sonarts"],
+  "jsRules": {
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "no-duplicate-variable": [true, "check-parameters"],
+    "no-eval": true,
+    "no-nested-template-literals": false,
+    "no-trailing-whitespace": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "no-unsafe-finally": true,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ]
+  },
+  "rules": {
+    "arrow-return-shorthand": true,
+    "ban-comma-operator": true,
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "curly": true,
+    "deprecation": true,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "interface-name": false,
+    "jsx-boolean-value": false,
+    "no-eval": true,
+    "no-console": false,
+    "no-internal-module": true,
+    "no-invalid-template-strings": true,
+    "no-missing-end-of-source-newline": false,
+    "no-trailing-whitespace": true,
+    "no-unused-expression": false, 
+    "no-unsafe-finally": true,
+    "no-floating-promises": true,
+    "no-consecutive-blank-lines": true,
+    "no-var-keyword": true,
+    "no-return-await": true,
+    "no-switch-case-fall-through": true,
+    "object-literal-sort-keys": false,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "prefer-switch": [true, {"min-cases": 2}],
+    "prefer-template": [true, "allow-single-concat"],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "switch-default": true,
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ]
+  },
+  "rulesDirectory": [],
+  "defaultSeverity": "error",
+  "linterOptions": {
+    "exclude": [
+      "dist", 
+      "node_modules",
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
+  }
+}

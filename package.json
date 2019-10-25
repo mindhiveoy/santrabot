@@ -1,0 +1,79 @@
+{
+  "name": "santra-chatbot-2",
+  "version": "1.0.0",
+  "description": "Santra chattibotti opiskelijoidenohjaukseen ja opiskelun tukemiseen.",
+  "main": "index.js",
+  "scripts": {
+    "test:web": "cd web && yarn test",
+    "test:backend": "cd backend && yarn test",
+    "test": "yarn test:backend && yarn test:web",
+    "lint:web": "cd web && yarn lint",
+    "lint:backend": "cd backend && yarn lint",
+    "lint": "yarn lint:backend && yarn lint:web",
+    "commit": "yarn git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindhiveoy/santra-chatbot.git"
+  },
+  "release": {
+    "verifyConditions": "condition-circle",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  },
+  "keywords": [
+    "santra",
+    "chat",
+    "bot",
+    "rivescript"
+  ],
+  "author": "Mindhive Oy <contact@mindhive.fi> (https://www.mindhive.fi)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mindhiveoy/santra-chatbot/issues"
+  },
+  "homepage": "https://github.com/mindhiveoy/santra-chatbot#readme",
+  "devDependencies": {
+    "@commitlint/cli": "8.2.0",
+    "@commitlint/config-conventional": "8.2.0",
+    "@semantic-release/changelog": "3.0.4",
+    "@semantic-release/git": "7.0.16",
+    "@semantic-release/npm": "5.1.15",
+    "commitizen": "4.0.3",
+    "git-cz": "3.2.1",
+    "husky": "3.0.8",
+    "rimraf": "3.0.0",
+    "semantic-release": "15.13.24",
+    "tslint": "5.20.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint && yarn test",
+      "build": "yarn build"
+    }
+  },
+  "files": [
+    "lib/**/*"
+  ]
+}

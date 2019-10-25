@@ -1,0 +1,238 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build-web-production:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15.0
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo/production
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "web/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install client side packages
+          command: cd web && yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "web/package.json" }}
+
+      # run tests!
+      - run:
+          name: Run unit tests
+          command: cd web && yarn test:ci
+
+      - run:
+          name: Clean
+          command: cd web && yarn clean
+
+      - run:
+          name: Build Dashboard Client code
+          command: cd web && yarn build:production
+
+      - run:
+          name: Deploy Dashboard to production
+          command: cd web && ./node_modules/.bin/firebase use production --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --except=functions
+
+  build-backend-production:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.11.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo/production
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install firebase cloud packages
+          command: cd backend && yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "backend/package.json" }}
+
+      - run:
+          name: Build Server Side Rendering code
+          comand: cd web && yarn build-functions:production
+
+      # run tests!
+      - run:
+          name: Run unit tests
+          command: cd backend && yarn test
+
+      - run:
+          name: Cleaning backend
+          command: cd backend && yarn clean
+
+      - run:
+          name: Build Firebase Cloud Functions
+          command: cd backend && yarn build
+
+      - run:
+          name: Build Dashboard Client code
+          command: cd backend && yarn build:production
+
+      - run:
+          name: Deploy Dashboard to production
+          command: cd backend && ./node_modules/.bin/firebase use production --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --only=functions
+
+  build-web-staging:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15.0
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo/staging
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "web/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install client side packages
+          command: cd web && yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "web/package.json" }}
+
+      # run tests!
+      - run:
+          name: Run unit tests
+          command: cd web && yarn test-ci
+
+      - run:
+          name: Clean
+          command: cd web && yarn clean
+
+      - run:
+          name: Build Dashboard Client code
+          command: cd web && yarn build:staging
+
+      - run:
+          name: Deploy Dashboard to staging
+          command: cd web && ./node_modules/.bin/firebase use staging --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --except=functions
+
+  build-backend-staging:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.11.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo/staging
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install firebase cloudn packages
+          command: cd backend && yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "backend/package.json" }}
+
+      - run:
+          name: Build Server Side Rendering code
+          comand: cd web && yarn build-functions:staging
+
+      # run tests!
+      - run:
+          name: Run unit tests
+          command: cd backend && yarn test
+
+      - run:
+          name: Cleaning backend
+          command: cd backend && yarn clean
+
+      - run:
+          name: Build Firebase Cloud Functions
+          command: cd web && yarn build-functions
+
+      - run:
+          name: Build Dashboard Client code
+          command: cd backend && yarn build:staging
+
+      - run:
+          name: Deploy Dashboard to staging
+          command: cd backend && ./node_modules/.bin/firebase use staging --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --only=functions
+
+workflows:
+  version: 2
+
+  deploy-production:
+    jobs:
+      - build-backend-production:
+          filters:
+            branches:
+              only: master
+      - build-web-production:
+          filters:
+            branches:
+              only: master
+
+  deploy-staging:
+    jobs:
+      - build-backend-staging:
+          filters:
+            branches:
+              only: staging
+      - build-web-staging:
+          filters:
+            branches:
+              only: staging

@@ -1,0 +1,35 @@
+{
+  "include": ["./src"],
+  "extends": "./tsconfig.json",
+  
+  "compileOnSave": true,
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "forceIsolatedModules": true
+  },
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "target": "es6",
+    "paths": {
+      "@shared/*": ["../../@shared/*"]
+    }
+  },
+  "exclude": [
+    "lib", 
+    "node_modules", 
+    "tools", 
+    "jest.config.js",
+    "**/__specs__/**/*.*",
+    "**/*.spec.ts*"
+  ]
+}
