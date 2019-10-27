@@ -14,12 +14,13 @@ const dashboard = (req, res, next) => {
   } else {
     // TODO set longer caching period for production use
     res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+
     res.write(
       `<html>
-         <body>Test</body>
+         <body>Page not found</body>
       </html>`,
     );
-    res.end();
+    res.status(404).end();
   }
 };
 

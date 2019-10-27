@@ -1,17 +1,18 @@
 import MainScreen from 'dashboard/components/navigation/MainScreen';
+import { DrawerItem } from 'dashboard/components/navigation/MainScreen/index';
 import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
-import { DrawerItem } from '../../../../components/navigation/MainScreen/index';
-import { ApplicationState } from '../../../../reducers/index';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { ApplicationState } from '../../../../reducers';
 
-export interface HomeProps extends DispatchProp<any> {
+export interface HomeProps extends DispatchProp<any>, RouteComponentProps<any> {
   drawerItems: DrawerItem[];
 }
 
 class Home extends React.PureComponent<HomeProps> {
   public render() {
-    const { drawerItems } = this.props;
-    return <MainScreen drawerItems={drawerItems} />;
+    const { drawerItems, location } = this.props;
+    return <MainScreen drawerItems={drawerItems} location={location} />;
   }
 }
 
@@ -22,4 +23,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default withRouter(connect(mapStateToProps)(Home));

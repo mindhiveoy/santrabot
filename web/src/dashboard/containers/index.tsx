@@ -6,6 +6,7 @@ import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { AnyAction } from 'redux';
 
+import { withRouter } from 'react-router';
 import { ApplicationState } from '../reducers';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
@@ -45,4 +46,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: any): RootProps => {
   };
 };
 
-export default connect(mapStateToProps)(Root);
+export default withRouter(connect(mapStateToProps)(Root));

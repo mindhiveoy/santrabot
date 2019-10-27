@@ -8,9 +8,22 @@
     ],
     "rewrites": [
       {
-        "source": "/**",
+        "source": "/graphql/**",
         "function": "app"
+      },
+      {
+        "source": "/csv/**",
+        "function": "app"
+      },
+      {
+        "source": "/theme/**",
+        "function": "app"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
+     
     ]
   }
 }

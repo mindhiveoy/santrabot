@@ -40,12 +40,12 @@ module.exports = env => {
  * TODO Move to utils
  */
 function readConfigFile(env) {
-  console.log(JSON.stringify(env));
-
   const CONFIG_DIR = resolve(__dirname, '..', 'config');
 
   process.env.NODE_CONFIG_DIR = CONFIG_DIR;
   process.env.NODE_ENV = env.NODE_ENV;
+
+  console.log(`reading the configuration for ${JSON.stringify(process.env.NODE_ENV)}`);
 
   try {
     const config = require('config');

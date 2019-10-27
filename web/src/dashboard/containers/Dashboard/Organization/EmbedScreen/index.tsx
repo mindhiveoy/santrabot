@@ -36,7 +36,7 @@ class EmbedScreen extends React.Component<EmbedScreenProps, any> {
     const organizationId = this.props.match.params.organizationId;
 
     const code = embedScript(organizationId, uri);
-    const { drawerItems } = this.props;
+    const { drawerItems, location } = this.props;
 
     return (
       <MainScreen drawerItems={drawerItems} noPadding location={location}>
@@ -64,7 +64,7 @@ class EmbedScreen extends React.Component<EmbedScreenProps, any> {
     const copyText: any = document.getElementById('embedCode');
     copyText.select();
     document.execCommand('copy');
-  };
+  }
 }
 
 const mapStateToProps = (state: ApplicationState, ownProps: any) => {
@@ -74,4 +74,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(EmbedScreen));
+export default withRouter(connect(mapStateToProps)(EmbedScreen));

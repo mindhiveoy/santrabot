@@ -17,8 +17,8 @@
     "predeploy:staging": "yarn test && yarn build",
     "predeploy:production": "yarn test && yarn build",
     "deploy:development": "firebase use default && firebase deploy --only functions,firestore,storage --token=$FIREBASE_TOKEN",
-    "deploy:staging": "firebase use staging && firebase deploy --only functions --token=$FIREBASE_TOKEN",
-    "deploy:production": "firebase use production && firebase deploy --only functions --token=$FIREBASE_TOKEN",
+    "deploy:staging": "./node_modules/.bin/firebase use staging && ./node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN",
+    "deploy:production": "./node_modules/.bin/firebase use production && ./node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN",
     "logs": "firebase functions:log"
   },
   "engines": {

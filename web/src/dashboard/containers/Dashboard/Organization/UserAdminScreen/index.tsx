@@ -17,6 +17,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
+import CheckIcon from '@material-ui/icons/Check';
 import {
   Organization,
   Schema,
@@ -39,7 +40,6 @@ import styled from 'styled-components';
 import { OrganizationRouteParams } from '..';
 import NewUsersDialog, { UserForm } from './NewUsersDialog';
 import { resolveOperations } from './resolveOperations';
-import CheckIcon from '@material-ui/icons/Check';
 
 const UserContainer = styled.div`
   width: 100%;
@@ -230,13 +230,13 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
     this.setState({
       dialogOpen: false,
     });
-  };
+  }
 
   private handleSnackbarClose = () => {
     this.setState({
       snackbarData: { open: false },
     });
-  };
+  }
 
   private handleSaveDialog = (newUsers: UserForm) => {
     const users = this.state.users.slice();
@@ -255,7 +255,7 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
       modified: true,
     });
     this.handleCloseDialog();
-  };
+  }
 
   private getNaviButtons = (state: State): Partial<NaviButtons> => {
     const { modified, checked, saving, deleting } = state;
@@ -299,17 +299,17 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
         </>
       ),
     };
-  };
+  }
 
   private naviButtonStageChange = (state: State) => {
     this.props.dispatch(setNaviButtons(this.getNaviButtons(state)));
-  };
+  }
 
   private handleOpenDialog = () => {
     this.setState({
       dialogOpen: true,
     });
-  };
+  }
 
   private handleSaveClick = async () => {
     const {
@@ -332,7 +332,7 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
       this.setState({ saving: false });
       alert(error);
     }
-  };
+  }
 
   private handleDeleteClick = async () => {
     const {
@@ -367,7 +367,7 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
       this.setState({ deleting: false });
       alert(error);
     }
-  };
+  }
 
   private handleCheckedToggle = (user: AdminEditorUserInfo) => () => {
     const checked = { ...this.state.checked };
@@ -377,11 +377,11 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
     this.setState({
       checked,
     });
-  };
+  }
 
   private getUserId = (user: AdminEditorUserInfo): string => {
     return user.id || user.email;
-  };
+  }
 
   private renderSelector = (user: AdminEditorUserInfo) => {
     const { appUser } = this.props;
@@ -405,7 +405,7 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
         <MenuItem value={UserRole.CLOSED}>Suljettu</MenuItem>
       </Select>
     );
-  };
+  }
 
   private handleSelectChange = (user: UserInfo) => (event: React.ChangeEvent<HTMLSelectElement>) => {
     const index = this.state.users.findIndex(u => u.id === user.id);
@@ -423,7 +423,7 @@ export class UserAdminScreen extends React.Component<UserAdminProps, State> {
         users,
       });
     }
-  };
+  }
 }
 
 const style = (theme: Theme) => ({
@@ -439,4 +439,4 @@ const mapStateToProps = (state: ApplicationState) => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(style)(withRouter(UserAdminScreen)) as any);
+export default withRouter(connect(mapStateToProps)(withStyles(style)(UserAdminScreen as any)));

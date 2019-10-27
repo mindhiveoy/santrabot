@@ -6,7 +6,7 @@ import { ApplicationState } from 'dashboard/reducers';
 
 import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { createGlobalStyle } from 'styled-components';
 import { resolvePaths } from 'utils/routerUtils';
@@ -117,4 +117,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

@@ -440,4 +440,4 @@ const mapStateToProps = (state: ApplicationState) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(PersonalizeScreen));
+export default withRouter(connect(mapStateToProps)(PersonalizeScreen));

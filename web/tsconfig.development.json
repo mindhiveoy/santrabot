@@ -12,6 +12,7 @@
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

@@ -102,7 +102,7 @@ class LogScreen extends React.Component<LogPanelProps, State> {
         </Button>,
       ],
     };
-  };
+  }
 
   public render() {
     const { activeSession, drawerItems, location } = this.props;
@@ -164,7 +164,7 @@ class LogScreen extends React.Component<LogPanelProps, State> {
     this.setState({
       deleteSingleLogDialogOpen: false,
     });
-  };
+  }
 
   private handleDeleteClick = async () => {
     const {
@@ -197,7 +197,7 @@ class LogScreen extends React.Component<LogPanelProps, State> {
     } catch (error) {
       alert(error);
     }
-  };
+  }
 
   private loadLogs = async () => {
     if (!this.query) {
@@ -231,17 +231,17 @@ class LogScreen extends React.Component<LogPanelProps, State> {
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   private handleChatSessionItemClick = (chatSessionId: string) => {
     this.props.dispatch && this.props.dispatch(setActiveChatSession(chatSessionId));
-  };
+  }
 
   private handleDeleteLogClick = () => {
     this.setState({
       deleteSingleLogDialogOpen: true,
     });
-  };
+  }
 }
 
 const mapStateToProps = (state: ApplicationState) => {
@@ -251,4 +251,4 @@ const mapStateToProps = (state: ApplicationState) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(LogScreen));
+export default withRouter(connect(mapStateToProps)(LogScreen));

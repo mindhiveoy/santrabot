@@ -154,13 +154,13 @@ class OrganizationAdminScreen extends React.Component<any, State> {
     this.setState({
       snackbarData: { open: false },
     });
-  };
+  }
 
   private organizationEditorOnChangeHandler = (organization: Organization) => {
     this.setState({ modifiedOrganization: organization, modified: true }, () =>
       this.props.dispatch(setNaviButtons(this.getNaviButtons())),
     );
-  };
+  }
 
   private removeSelectedOrganization = async () => {
     this.setState({ confirmDialogOpen: false, deleting: true });
@@ -179,15 +179,15 @@ class OrganizationAdminScreen extends React.Component<any, State> {
         console.error(error);
       }
     }
-  };
+  }
 
   private confirmDialogOnCloseHandler = () => {
     this.setState({ confirmDialogOpen: false });
-  };
+  }
 
   private closeNewOrganizationDialog = () => {
     this.setState({ newOrganizationDialogOpen: false });
-  };
+  }
 
   private saveNewOrganization = async (organization: Organization) => {
     this.setState({ newOrganizationDialogOpen: false, saving: true }, () =>
@@ -207,11 +207,11 @@ class OrganizationAdminScreen extends React.Component<any, State> {
       this.setState({ saving: false });
       console.error(error);
     }
-  };
+  }
 
   private handleOpenDialog = () => {
     this.setState({ newOrganizationDialogOpen: true });
-  };
+  }
 
   private getNaviButtons = (): Partial<NaviButtons> => {
     const { saving, modified, deleting, selectedOrganization } = this.state;
@@ -251,7 +251,7 @@ class OrganizationAdminScreen extends React.Component<any, State> {
         </>
       ),
     };
-  };
+  }
 
   private handleSaveClick = async () => {
     const { modifiedOrganization } = this.state;
@@ -282,11 +282,11 @@ class OrganizationAdminScreen extends React.Component<any, State> {
         this.setState({ saving: false });
       }
     }
-  };
+  }
 
   private handleDeleteClick = () => {
     this.setState({ confirmDialogOpen: true });
-  };
+  }
 
   private onOrganizationsSnapshot = (snapshot: firebase.firestore.QuerySnapshot) => {
     if (snapshot.empty) {
@@ -314,7 +314,7 @@ class OrganizationAdminScreen extends React.Component<any, State> {
       organizations,
       selectedOrganization: updatedSelectedOrganization,
     });
-  };
+  }
 
   private handleItemClick = (id: OrganizationId) => () => {
     const data = this.state.organizations.find(item => item.id === id);
@@ -326,7 +326,7 @@ class OrganizationAdminScreen extends React.Component<any, State> {
         () => this.props.dispatch(setNaviButtons(this.getNaviButtons())),
       );
     }
-  };
+  }
 }
 
 export default connect()(OrganizationAdminScreen);

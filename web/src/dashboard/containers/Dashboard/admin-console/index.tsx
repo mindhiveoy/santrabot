@@ -8,7 +8,7 @@ import { UserOrganizatioInfoWithId } from 'dashboard/reducers/auth/authReducer';
 import { setDrawerItems, setNaviButtons } from 'dashboard/reducers/navi/naviActions';
 import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import styled from 'styled-components';
 import { getOrganizationDrawerItems } from '../Organization';
 import OrganizationAdminScreen from './containers/OrganizationAdminScreen';
@@ -68,7 +68,7 @@ class AdminConsole extends React.Component<AdminConsoleProps, State> {
     this.setState({
       tabIndex,
     });
-  };
+  }
 
   private renderTab() {
     switch (this.state.tabIndex) {
@@ -94,4 +94,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(withTheme(AdminConsole));
+export default withRouter(connect(mapStateToProps)(withTheme(AdminConsole)));

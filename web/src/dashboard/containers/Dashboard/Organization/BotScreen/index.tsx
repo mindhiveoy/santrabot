@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { EMPTY_SCRIPT_FILE, RIVE_START_DOCUMENT } from '@shared/bot/intepreter';
 import { NaviButtons, setNaviButtons } from 'dashboard/reducers/navi/naviActions';
 
+import { RouteComponentProps, withRouter } from 'react-router';
 import styled from 'styled-components';
 import DashboardChatMessageHandler from './DashboardChatMessageHandler';
 import CodeEditor from './scripteditor';
@@ -18,7 +19,7 @@ const ContentPane = styled.div`
   height: 100%;
 `;
 
-export interface BotPanelProps extends DispatchProp<any> {
+export interface BotPanelProps extends DispatchProp<any>, RouteComponentProps<any> {
   activeOrganization?: Organization;
   drawerItems: DrawerItem[];
 }
@@ -63,21 +64,17 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
   }
 
   public render() {
-    const { drawerItems } = this.props;
+    const { drawerItems, location } = this.props;
     return (
       <MainScreen
         drawerItems={drawerItems}
-        // breadCrumbs={this.createBreadCrumbs()}
+        location={location}
         appBarRightButtons={this.listRightBarButtons()}
         noPadding
       >
         <ContentPane>
-          {/* <ErrorBoundary name="Code Editor"> */}
           <CodeEditor />
-          {/* </ErrorBoundary>
-        <ErrorBoundary name="Chat Container"> */}
           <ChatContainer messageHandler={this.messageHandler} />
-          {/* </ErrorBoundary> */}
         </ContentPane>
       </MainScreen>
     );
@@ -85,7 +82,7 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
 
   private naviButtonStageChange = (state: State) => {
     this.props.dispatch(setNaviButtons(this.getNaviButtons(state)));
-  };
+  }
 
   private listRightBarButtons = () => {
     const { modified = {}, activeScriptName } = this.state;
@@ -121,7 +118,7 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
         Nimeä dokumentti
       </Button>,
     ];
-  };
+  }
 
   private getNaviButtons = (state: State): Partial<NaviButtons> => {
     const { modified, checked } = state;
@@ -152,11 +149,11 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
         </>
       ),
     };
-  };
+  }
 
   private handleSaveClick = () => {
     alert('Save');
-  };
+  }
   /**
    * Create a new script document into memory
    */
@@ -178,19 +175,19 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
       code: newScript.data,
       modified,
     } as any);
-  };
+  }
 
   private handleRenameDocument = () => {
     this.setState({
       renameDialogOpen: true,
     });
-  };
+  }
 
   private handleDeleteDocument = () => {
     this.setState({
       deleteDialogOpen: true,
     });
-  };
+  }
 
   private uniqueScriptName = (scripts: Script[], name: string): string => {
     let index = 1;
@@ -199,7 +196,7 @@ class BotScreen extends React.PureComponent<BotPanelProps, State> {
       fileName = name + index++;
     }
     return fileName;
-  };
+  }
 }
 
 const mapStateToProps = (state: ApplicationState, ownProps: Partial<BotPanelProps>) => {
@@ -210,4 +207,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: Partial<BotPanelProp
   };
 };
 
-export default connect(mapStateToProps)(BotScreen);
+export default withRouter(connect(mapStateToProps)(BotScreen));

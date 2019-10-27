@@ -1,5 +1,4 @@
 import { OrganizationId, User } from '@shared/schema';
-import { DrawerItem } from 'dashboard/components/navigation/MainScreen';
 import LoginPage from 'dashboard/containers/LoginPage';
 import { ApplicationState } from 'dashboard/reducers';
 import * as React from 'react';
@@ -17,8 +16,6 @@ export interface AppLocationParams {
 
 interface DashboardProps extends DispatchProp<AnyAction>, RouteComponentProps<AppLocationParams> {
   appUser?: User;
-  drawerItems: DrawerItem[];
-  activeRile: string;
 }
 
 class MainLayout extends React.Component<DashboardProps> {
@@ -36,8 +33,6 @@ class MainLayout extends React.Component<DashboardProps> {
       </Switch>
     );
   }
-
-  // private renderOrganization = () => <OrganizationScreen location={this.props.location} />;
 
   private renderDashboard = () => {
     const { appUser, match } = this.props;
@@ -57,35 +52,7 @@ class MainLayout extends React.Component<DashboardProps> {
       return <Redirect to={resolvePaths(match.path, organizationNames[0])} />;
     }
     return this.renderNoOrgazation();
-  };
-
-  // private listRightBarButtons = () => {
-  //   if (!this.props.appUser) {
-  //     return [];
-  //   }
-  //   return [
-  //     // this.renderCreateBoardButton()
-  //   ];
-  // };
-
-  // private createBreadCrumbs = () => {
-  //   const pathName = getPageName(this.props.match) as NAVIGATION_PATH;
-
-  //   const crumbs = [
-  //     {
-  //       label: 'Hallintapaneeli',
-  //       uri: `/${NAVIGATION_PATH.DASHBOARD}/`,
-  //     },
-  //   ];
-
-  //   if (pathName !== NAVIGATION_PATH.HOME) {
-  //     crumbs.push({
-  //       label: getLabelForNavigationPath(pathName),
-  //       uri: `/${NAVIGATION_PATH.DASHBOARD}/${pathName}`,
-  //     });
-  //   }
-  //   return crumbs;
-  // };
+  }
 
   private renderNoOrgazation() {
     return (
@@ -104,7 +71,6 @@ const mapStateToProps = (
   return {
     ...ownProps,
     appUser: state.auth.appUser,
-    drawerItems: state.navi.drawerItems,
   } as DashboardProps;
 };
 

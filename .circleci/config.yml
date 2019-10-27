@@ -55,7 +55,7 @@ jobs:
   build-backend-production:
     docker:
       # specify the version you desire here
-      - image: circleci/node:8.11.1
+      - image: circleci/node:10.15.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -83,10 +83,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "backend/package.json" }}
 
-      - run:
-          name: Build Server Side Rendering code
-          comand: cd web && yarn build-functions:production
-
       # run tests!
       - run:
           name: Run unit tests
@@ -101,12 +97,8 @@ jobs:
           command: cd backend && yarn build
 
       - run:
-          name: Build Dashboard Client code
-          command: cd backend && yarn build:production
-
-      - run:
           name: Deploy Dashboard to production
-          command: cd backend && ./node_modules/.bin/firebase use production --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --only=functions
+          command: cd backend && yarn deploy:production
 
   build-web-staging:
     docker:
@@ -139,14 +131,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "web/package.json" }}
 
-      # run tests!
-      - run:
-          name: Run unit tests
-          command: cd web && yarn test-ci
-
       - run:
           name: Clean
           command: cd web && yarn clean
+
+      - run:
+          name: Install shared
+          command: cd @shared/bot && yarn install
 
       - run:
           name: Build Dashboard Client code
@@ -159,7 +150,7 @@ jobs:
   build-backend-staging:
     docker:
       # specify the version you desire here
-      - image: circleci/node:8.11.1
+      - image: circleci/node:10.15.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -187,10 +178,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "backend/package.json" }}
 
-      - run:
-          name: Build Server Side Rendering code
-          comand: cd web && yarn build-functions:staging
-
       # run tests!
       - run:
           name: Run unit tests
@@ -201,16 +188,12 @@ jobs:
           command: cd backend && yarn clean
 
       - run:
-          name: Build Firebase Cloud Functions
-          command: cd web && yarn build-functions
-
-      - run:
           name: Build Dashboard Client code
-          command: cd backend && yarn build:staging
+          command: cd backend && yarn build
 
       - run:
           name: Deploy Dashboard to staging
-          command: cd backend && ./node_modules/.bin/firebase use staging --token=$FIREBASE_TOKEN && ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive --only=functions
+          command: cd backend && yarn deploy:staging
 
 workflows:
   version: 2

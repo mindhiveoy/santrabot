@@ -17,7 +17,7 @@ const firebaseApp = firebase.initializeApp(CONFIG.firebase);
 if (!isServerSide()) {
   firebaseApp
     .firestore()
-    .enablePersistence({ experimentalTabSynchronization: true })
+    .enablePersistence({ synchronizeTabs: true })
     .then(() => {
       console.log('firestore persistence enabled.');
     })

@@ -408,4 +408,4 @@ const mapStateToProps = (state: ApplicationState, ownProps: Partial<MainScreenPr
   };
 };
 
-export default withWidth()(withRouter(connect(mapStateToProps)(withTheme(MainScreen))) as any) as any;
+export default withRouter(withWidth()(connect(mapStateToProps)(withTheme(MainScreen))) as any) as any;

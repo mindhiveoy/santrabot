@@ -188,7 +188,7 @@ class OrganizationScreen extends React.Component<OrganizationPanelProps, State> 
         status: PanelStatus.NOT_FOUND,
       });
     }
-  };
+  }
 }
 
 export function getOrganizationDrawerItems(props: any) {

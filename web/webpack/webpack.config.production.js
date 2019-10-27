@@ -21,12 +21,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const { resolve } = path;
 const distPath = resolve(__dirname, '../dist');
-const indexPath = resolve(distPath, 'index.html');
+
 
 const tsconfigFile = 'tsconfig.production.json';
 
 const externals = [
-  // '@material-ui/core', '@material-ui/icons', /@material-ui\/core\/*./, /@material-ui\/icons\/*./
+  {
+    firebase: 'firebase',
+    react: 'React',
+  },
 ];
 
 function createChatClientConf(env) {
@@ -37,7 +40,7 @@ function createChatClientConf(env) {
     devtool: 'source-map',
     output: {
       filename: 'js/chat-client.min.js',
-      publicPath: distPath,
+      publicPath: '/',
       path: distPath,
     },
 
@@ -56,8 +59,6 @@ function createChatClientConf(env) {
     },
 
     plugins: [
-      new HtmlWebpackPlugin({ template: 'index.html' }),
-
       new webpack.DefinePlugin({
         __isBrowser__: 'true',
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -75,7 +76,6 @@ function createChatClientConf(env) {
         new OptimizeCSSAssetsPlugin({}),
       ],
     },
-    externals,
   };
 }
 
@@ -83,11 +83,13 @@ function createDashboardClientConf(env) {
   return {
     target: 'web',
     mode: 'production',
-    entry: ['./index.prod.tsx'],
+    entry: './index.tsx',
+    context: resolve(__dirname, '../src/'),
+    devtool: 'source-map',
 
     output: {
       filename: 'js/[name].bundle.min.js',
-      publicPath: distPath,
+      publicPath: '/',
       path: distPath,
     },
 
@@ -96,6 +98,10 @@ function createDashboardClientConf(env) {
     },
 
     plugins: [
+      new HtmlWebpackPlugin({
+        template: 'index.production.html',
+      }),
+
       new webpack.DefinePlugin({
         __isBrowser__: 'true',
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -115,13 +121,14 @@ function createDashboardClientConf(env) {
       minimizer: [
         new TerserJSPlugin({
           extractComments: true,
+          sourceMap: true,
           parallel: 4,
         }),
         new OptimizeCSSAssetsPlugin({}),
       ],
-      splitChunks: {
-        chunks: 'all',
-      },
+      // splitChunks: {
+      //   chunks: 'all',
+      // },
     },
 
     externals,

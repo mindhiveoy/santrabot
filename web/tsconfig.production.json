@@ -8,11 +8,12 @@
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "build/dist",
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
+    "module": "commonjs",
+    "target": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -41,6 +42,19 @@
   },
 
   "exclude": [
+    "acceptance-tests",
+    "build",
+    "coverage",
+    "dist",
+    "jest",
+    "jest.config.js",
+    "node_modules",
+    "postcss.config.js",
+    "test-setup.js",
+    "scripts",
+    "webpack",
+    "**/*.spec.*",
+    "**/__specs__",
     "src/utils/__specs__",
     "src/dashboard/containers/Dashboard/Organization/users/__specs__",
     "src/**/*.spec.ts"
