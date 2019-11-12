@@ -1,9 +1,23 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  List,
+} from '@material-ui/core';
 import { ChatSessionWithId, Schema } from '@shared/schema';
 
-import MainScreen, { DrawerItem } from 'dashboard/components/navigation/MainScreen';
+import MainScreen, {
+  DrawerItem,
+} from 'dashboard/components/navigation/MainScreen';
 import { setActiveChatSession } from 'dashboard/reducers/chat-session/chatSessionActions';
-import { NaviButtons, naviButtonStageChange, setNaviButtons } from 'dashboard/reducers/navi/naviActions';
+import {
+  NaviButtons,
+  naviButtonStageChange,
+  setNaviButtons,
+} from 'dashboard/reducers/navi/naviActions';
 import firebaseApp from 'firebaseApp';
 import * as React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -34,7 +48,9 @@ const DELETE_CHAT_SESSION_MUTATION = `
   }
 `;
 
-export interface LogPanelProps extends RouteComponentProps<OrganizationRouteParams>, DispatchProp<any> {
+export interface LogPanelProps
+  extends RouteComponentProps<OrganizationRouteParams>,
+    DispatchProp<any> {
   activeSession: string;
   drawerItems: DrawerItem[];
 }
@@ -86,7 +102,12 @@ class LogScreen extends React.Component<LogPanelProps, State> {
     const { activeSession } = this.props;
     return {
       leftButtons: [
-        <Button key="delete" variant="contained" color="primary" onClick={this.handleDeleteLogClick}>
+        <Button
+          key="delete"
+          variant="contained"
+          color="primary"
+          onClick={this.handleDeleteLogClick}
+        >
           Poista
         </Button>,
         <Button
@@ -141,7 +162,9 @@ class LogScreen extends React.Component<LogPanelProps, State> {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Poista chat-keskustelu?</DialogTitle>
+          <DialogTitle id="alert-dialog-title">
+            Poista chat-keskustelu?
+          </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Haluatko varmasti poistaa keskustelun? Toimintoa ei voi peruuttaa.
@@ -180,7 +203,9 @@ class LogScreen extends React.Component<LogPanelProps, State> {
       });
 
       const sessions = this.state.sessions.slice();
-      let index = sessions.findIndex(item => item.id === this.props.activeSession);
+      let index = sessions.findIndex(
+        item => item.id === this.props.activeSession,
+      );
       if (index >= 0) {
         sessions.splice(index, 1);
       }
@@ -234,7 +259,8 @@ class LogScreen extends React.Component<LogPanelProps, State> {
   }
 
   private handleChatSessionItemClick = (chatSessionId: string) => {
-    this.props.dispatch && this.props.dispatch(setActiveChatSession(chatSessionId));
+    this.props.dispatch &&
+      this.props.dispatch(setActiveChatSession(chatSessionId));
   }
 
   private handleDeleteLogClick = () => {

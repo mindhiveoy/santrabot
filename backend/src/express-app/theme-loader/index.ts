@@ -1,4 +1,4 @@
-import { Bot, Schema } from '@shared/schema';
+import { Bot, Schema, defaultChatConfiguration } from '@shared/schema';
 import admin from '../../admin';
 
 /**
@@ -22,12 +22,13 @@ const theme = (req, res) => {
     .doc(`/${Schema.ORGANIZATIONS}/${organizationId}/${Schema.BOTS}/${botName}`)
     .get()
     .then(snapshot => {
-      if (!snapshot.exists) {
-        res.write(`Theme not found for organization: ${organizationId} and bot: ${botName}.`);
-        res.status(404).end();
-        return;
-      }
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+
+      if (!snapshot.exists) {
+        res.write(JSON.stringify(defaultChatConfiguration));
+        res.end();
+	return;
+      }
 
       const bot: Bot = snapshot.data() as Bot;
       res.write(JSON.stringify(bot.configuration));

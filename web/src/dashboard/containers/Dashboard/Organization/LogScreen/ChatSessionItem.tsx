@@ -31,14 +31,18 @@ export interface ChatSessionItemProps {
   selected: boolean;
   onClick: (chatSessionId: string) => void;
 }
-export default class ChatSessionItem extends React.PureComponent<ChatSessionItemProps> {
+export default class ChatSessionItem extends React.PureComponent<
+  ChatSessionItemProps
+> {
   public render() {
     const {
       data: { id, started },
       selected,
     } = this.props;
 
-    const date = moment.utc((started as any).seconds * 1000).format('DD.MM.YYYY HH:mm:ss');
+    const date = moment
+      .utc((started as any).seconds * 1000)
+      .format('DD.MM.YYYY HH:mm:ss');
 
     return (
       <StyleListItem onClick={this.handleClick} selected={selected}>
