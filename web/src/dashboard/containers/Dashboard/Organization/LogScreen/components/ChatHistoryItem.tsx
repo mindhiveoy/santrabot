@@ -1,5 +1,4 @@
-import { ChatMessageResponse } from '@shared/schema';
-import { defaultChatConfiguration } from 'chat';
+import { ChatMessageResponse, defaultChatConfiguration } from '@shared/schema';
 import MessageItem from 'chat/components/MessageItem';
 import * as React from 'react';
 
@@ -7,7 +6,9 @@ export interface ChatHistoryItemProps {
   item: ChatMessageResponse;
 }
 
-export default class ChatHistoryItem extends React.PureComponent<ChatHistoryItemProps> {
+export default class ChatHistoryItem extends React.PureComponent<
+  ChatHistoryItemProps
+> {
   public render() {
     const {
       item: { user, bot },

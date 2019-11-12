@@ -1,4 +1,9 @@
-import { ChatConfiguration, ChatMessage, ChatMessagePair } from '@shared/schema';
+import {
+  ChatConfiguration,
+  ChatMessage,
+  ChatMessagePair,
+  defaultChatConfiguration,
+} from '@shared/schema';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -30,7 +35,10 @@ export enum ChatSessionState {
 
 export type ChatSessionStateListener = (newState: ChatSessionState) => void;
 
-export type ChatButtonMessageHandler = (topic: string, message?: string) => void;
+export type ChatButtonMessageHandler = (
+  topic: string,
+  message?: string,
+) => void;
 
 export interface ChatSessionHandler {
   /**
@@ -86,30 +94,6 @@ export interface ChatContainerProps {
   expandOnMobile: boolean;
 }
 
-export const defaultChatConfiguration: ChatConfiguration = {
-  user: {
-    color: 'black',
-    background: 'lightgreen',
-    dateColor: '#333',
-    margin: 8,
-  },
-  bot: {
-    color: 'black',
-    background: 'lightblue',
-    dateColor: '#333',
-    margin: 8,
-  },
-  headerBackground: 'blue',
-  headerPadding: 8,
-  headerColor: 'white',
-  color: 'black',
-  background: 'white',
-  borderRadius: 4,
-  bubbleBorderRadius: 4,
-  boxShadow: '-10px 0 37px -2px rgba(0, 0, 0, 0.63)',
-  margin: 4,
-};
-
 const Chat = styled.div<Partial<ChatContainerProps>>`
   position: ${props => (props.designMode ? 'relative' : 'fixed')};
   display: flex;
@@ -124,15 +108,20 @@ const Chat = styled.div<Partial<ChatContainerProps>>`
   right: 0;
   bottom: 0;
   max-height: 100%;
-  margin-right: ${props => (props.expandOnMobile && isMobileScreen() ? 0 : 16)}px;
+  margin-right: ${props =>
+    props.expandOnMobile && isMobileScreen() ? 0 : 16}px;
   box-shadow: ${props =>
     props.configuration && props.configuration.boxShadow
       ? props.configuration.boxShadow
       : '-10px 0 37px -2px rgba(0, 0, 0, 0.63)'};
   border-radius: ${props =>
-    props.configuration && props.configuration.borderRadius ? props.configuration.borderRadius : 4}px;
+    props.configuration && props.configuration.borderRadius
+      ? props.configuration.borderRadius
+      : 4}px;
   background-color: ${props =>
-    props.configuration && props.configuration.background ? props.configuration.background : 'white'};
+    props.configuration && props.configuration.background
+      ? props.configuration.background
+      : 'white'};
   z-index: ${props => !props.designMode && 10000};
 `;
 
@@ -154,7 +143,10 @@ interface State {
   botWriting: boolean;
 }
 
-export default class ChatContainer extends React.Component<ChatContainerProps, State> {
+export default class ChatContainer extends React.Component<
+  ChatContainerProps,
+  State
+> {
   public static defaultProps: Partial<ChatContainerProps> = {
     configuration: defaultChatConfiguration,
     expandOnMobile: true,
@@ -173,11 +165,16 @@ export default class ChatContainer extends React.Component<ChatContainerProps, S
   }
 
   public componentWillUnMount() {
-    this.props.messageHandler.removeStateListener(this.handleSessionStateChange);
+    this.props.messageHandler.removeStateListener(
+      this.handleSessionStateChange,
+    );
   }
 
   public render() {
-    const { configuration = { headerText: 'Default' } as any, headerTextElement } = this.props;
+    const {
+      configuration = { headerText: 'Default' } as any,
+      headerTextElement,
+    } = this.props;
 
     return (
       <Chat {...this.props}>

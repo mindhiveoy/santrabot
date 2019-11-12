@@ -1,0 +1,16 @@
+const APP_CONFIG = {
+  build: {
+    environment: 'development',
+  },
+  firebase: {
+    apiKey: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    authDomain: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    databaseURL: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    projectId: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    storageBucket: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    messagingSenderId: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+    appId: "__SET-YOUR_OWN_AND_DO_NOT_SHARE__",
+  },
+}
+
+export default APP_CONFIG;

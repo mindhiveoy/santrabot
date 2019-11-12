@@ -7,9 +7,15 @@ import {
   Variable,
 } from '@shared/schema';
 import * as React from 'react';
+import '../global.d.ts';
 
-import ChatContainer, { ChatSessionHandler, ChatSessionState, ChatSessionStateListener } from 'chat';
+import ChatContainer, {
+  ChatSessionHandler,
+  ChatSessionState,
+  ChatSessionStateListener,
+} from 'chat';
 
+import APP_CONFIG from 'config';
 import { render } from 'react-dom';
 import graphQlCall from 'utils/graphQlClient';
 
@@ -147,7 +153,9 @@ export class ClientChatSessionHandler implements ChatSessionHandler {
   /**
    * Send a single chat message to bot and get answer
    */
-  private sendMessage = async (message: string): Promise<ChatMessageResponse> => {
+  private sendMessage = async (
+    message: string,
+  ): Promise<ChatMessageResponse> => {
     if (this.state === ChatSessionState.READY) {
       this.setState(ChatSessionState.ACTIVE);
     }
@@ -183,17 +191,26 @@ if (document) {
       const organizationId = args[1];
       const bot = 'santra';
 
-      const url = `https://${CONFIG.firebase.authDomain}/theme/${organizationId}/${bot}/`;
+      const url = `https://${APP_CONFIG.firebase.authDomain}/theme/${organizationId}/${bot}/`;
       fetch(url)
         .then(res => res.json())
         .then((configuration: ChatConfiguration) => {
-          const messageHandler = new ClientChatSessionHandler(organizationId, 'santra');
+          const messageHandler = new ClientChatSessionHandler(
+            organizationId,
+            'santra',
+          );
 
           const root = document.createElement('div');
           root.id = 'santra-chat-bot';
           document.getElementsByTagName('body')[0].appendChild(root);
 
-          render(<ChatContainer messageHandler={messageHandler} configuration={configuration} />, root);
+          render(
+            <ChatContainer
+              messageHandler={messageHandler}
+              configuration={configuration}
+            />,
+            root,
+          );
         })
         .catch(error => console.error(error));
     }

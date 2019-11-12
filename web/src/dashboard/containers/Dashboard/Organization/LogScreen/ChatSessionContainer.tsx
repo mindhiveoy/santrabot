@@ -8,7 +8,9 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { OrganizationRouteParams } from '..';
 import ChatHistoryItem from './components/ChatHistoryItem';
 
-export interface ChatSessionContainerProps extends RouteComponentProps<OrganizationRouteParams>, DispatchProp<any> {
+export interface ChatSessionContainerProps
+  extends RouteComponentProps<OrganizationRouteParams>,
+    DispatchProp<any> {
   activeSession?: string;
 }
 
@@ -17,7 +19,10 @@ export interface State {
   messages: ChatMessageResponse[];
 }
 
-class ChatSessionContainer extends React.Component<ChatSessionContainerProps, State> {
+class ChatSessionContainer extends React.Component<
+  ChatSessionContainerProps,
+  State
+> {
   constructor(props: ChatSessionContainerProps) {
     super(props);
 
@@ -57,7 +62,9 @@ class ChatSessionContainer extends React.Component<ChatSessionContainerProps, St
             messages.push(doc.data() as ChatMessageResponse);
           });
 
-          messages.sort((a, b) => (a.user.date as number) - (b.user.date as number));
+          messages.sort(
+            (a, b) => a.user.date - b.user.date,
+          );
 
           this.setState({
             messages,
