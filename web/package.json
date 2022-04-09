@@ -45,7 +45,7 @@
     "firebase": "7.0.0",
     "graphql": "14.5.8",
     "material-ui-chip-input": "1.0.0",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "react": "16.10.2",
     "react-ace": "7.0.4",
     "react-color": "2.17.3",
