@@ -114,7 +114,7 @@
     "react-test-renderer": "16.10.1",
     "responsive-loader": "1.2.0",
     "rimraf": "3.0.0",
-    "sharp": "0.23.1",
+    "sharp": "0.30.5",
     "style-loader": "1.0.0",
     "stylelint": "11.0.0",
     "stylelint-config-recommended": "3.0.0",
